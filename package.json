@@ -1,0 +1,29 @@
+{
+  "name": "api_livro_caixa",
+  "version": "1.0.0",
+  "description": "API de registros em livro caixa",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/candidodev/api_livro_caixa.git"
+  },
+  "keywords": [
+    "caixa",
+    "movimento",
+    "finanças",
+    "valores"
+  ],
+  "author": "InfoCimol",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/candidodev/api_livro_caixa/issues"
+  },
+  "homepage": "https://github.com/candidodev/api_livro_caixa#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mysql2": "^2.3.3"
+  }
+}
