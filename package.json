@@ -2,8 +2,9 @@
   "name": "api_livro_caixa",
   "version": "1.0.0",
   "description": "API de registros em livro caixa",
-  "main": "index.js",
+  "main": "api.js",
   "scripts": {
+    "start":"node ./bin/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
