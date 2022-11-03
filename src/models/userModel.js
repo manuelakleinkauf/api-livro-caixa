@@ -3,20 +3,20 @@ const mysql = require("./mysqlConnect");
 const jwt = require('jsonwebtoken');
 
 get= async ()=>{
-   const usuarios = await  mysql.query("SELECT * FROM usuario");
-   return usuarios;
+   const users = await  mysql.query("SELECT * FROM user");
+   return users;
 }
 
 login= async (data)=>{
-   sql="SELECT id, nome, email FROM usuario WHERE email='"
-   +data.email+"' and senha='"+data.senha+"'";
-   const usuarios = await  mysql.query(sql);
+   sql="SELECT id, name, email FROM user WHERE email='"
+   +data.email+"' and password='"+data.password+"'";
+   const users = await  mysql.query(sql);
    result=null;
-   if(usuarios[0].id){
-      const id=usuarios[0].id;
+   if(users[0].id){
+      const id=users[0].id;
       var token = jwt.sign({id} , 'CIMOL', {expiresIn:1800}); 
       console.log("Fez login e gerou token!");
-      result={ auth: true, token: token , user:usuarios[0]}
+      result={ auth: true, token: token , user:users[0]}
    }
    return result;
 }

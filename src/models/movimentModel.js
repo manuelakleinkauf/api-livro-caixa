@@ -1,37 +1,38 @@
 const mysql = require("./mysqlConnect");
 
 get= async (query)=>{
+    
     query = JSON.parse(query);
     sql= "SELECT ";
-    if(query.select.data){
-        sql+="data, ";
+    if(query.select.date){
+        sql+="date, ";
     }
-    if(query.select.descricao){
-        sql+="descricao, ";
+    if(query.select.description){
+        sql+="description, ";
     }
-    if(query.select.valor){
-        sql+="valor, ";
+    if(query.select.value){
+        sql+="value, ";
     }
-    if(query.select.tipo){
-        sql+="tipo, ";
+    if(query.select.type){
+        sql+="type, ";
     }
     sql=sql.substring(0, sql.length - 2);//remover dois ultimos caracter da sctring
-    sql+=" FROM movimento"
+    sql+=" FROM moviment"
     if(query.where){
         sql+=" WHERE"
         query.where.forEach(item =>{
-            sql+=" "+item.campo+" "+item.operador.replace('/', '')+" '"+item.valor+"' AND";
+            sql+=" "+item.campo+" "+item.operador.replace('/', '')+" '"+item.value+"' AND";
         })
         sql=sql.substring(0, sql.length - 3);//remover utilmo segmento 'END' da string
     } 
     return await  mysql.query(sql);
 }
 
-post= async (data, idUser)=>{
-    sql="INSERT INTO movimento"
-    +" (descricao, data, valor, usuario_id, tipo)"
+post= async (date, idUser)=>{
+    sql="INSERT INTO moviment"
+    +" (description, date, value, user_id, type)"
     +" VALUES "
-    +"('"+data.descricao+"', '"+data.data+"', "+data.valor+", "+idUser+", '"+data.tipo+"')";
+    +"('"+date.description+"', '"+date.date+"', "+date.value+", "+idUser+", '"+date.type+"')";
     const result = await  mysql.query(sql);
     if(result){
         resp={"status":"OK",insertId:result.insertId};
@@ -41,10 +42,10 @@ post= async (data, idUser)=>{
     return resp;
  }
 
- put= async (data, idUser)=>{
-     sql="UPDATE movimentos SET "
-     +"descricao='"+data.descricao+"', data= '"+data.data+"', valor="+data.valor+", usuario_id="+idUser+", tipo='"+data.tipo+"'" 
-     +" WHERE id= "+data.id
+ put= async (date, idUser)=>{
+     sql="UPDATE moviments SET "
+     +"description='"+date.description+"', date= '"+date.date+"', value="+date.value+", user_id="+idUser+", type='"+date.type+"'" 
+     +" WHERE id= "+date.id
     const result = await  mysql.query(sql);
     resp=null;
     if(result){
@@ -54,7 +55,7 @@ post= async (data, idUser)=>{
  }
 
  remove = async (idMov, idUser)=>{
-    sql="DELETE INTO movimentos"
+    sql="DELETE INTO moviments"
     +" WHERE id="+idMov;
     const result = await  mysql.query(sql);
     resp=null;

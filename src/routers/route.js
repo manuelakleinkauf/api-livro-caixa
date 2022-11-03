@@ -1,10 +1,10 @@
 const express = require('express');
 const userController=require("../controllers/userController");
-const movimentoController=require("../controllers/movimentoController");
+const movimentoController=require("../controllers/movimentController");
 const router = express.Router();
 
 router.get('/', (req,res,next)=>{
-    res.status(200).send("<h1>API Livro Caixa</h1>");
+    res.status(200).send("<h1>CASHBOOK API</h1>");
 })
 
 router.get('/user', async (req, res, next)=> {
@@ -22,7 +22,7 @@ router.post('/user/logout', async (req, res, next)=> {
     res.status(200).send(user);
 });
 
-router.get('/mov', async (req, res, next)=>{
+router.get('/moviments', async (req, res, next)=>{
     auth= userController.verifyJWT(req.headers['x-access-token'])
     if(auth.idUser){
         if(req.headers.iduser==auth.idUser){
@@ -36,6 +36,7 @@ router.get('/mov', async (req, res, next)=>{
     }
     res.status(200).send(resp)
 })
+
 router.post('/mov',async (req, res, next)=>{
     auth= userController.verifyJWT(req.headers['x-access-token'])
     if(auth.idUser){
@@ -45,7 +46,6 @@ router.post('/mov',async (req, res, next)=>{
         }else{
             resp= {"status":"null", auth}
         }
-        
     }else{
         resp= {"status":"null", auth}
     }

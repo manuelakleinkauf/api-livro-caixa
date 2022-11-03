@@ -1,4 +1,4 @@
-const movimentoModel = require('../models/movimentoModel');
+const movimentoModel = require('../models/movimentModel');
 
 exports.post=async(data,idUser)=>{
     return await movimentoModel.post(data, idUser);
