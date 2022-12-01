@@ -127,19 +127,6 @@ io = async()=>{
 }
 
 ioYearMonth = async(data)=>{
-    /*
-    input = await mysql.query(`SELECT sum (value) AS input FROM moviment WHERE type='input' AND YEAR(date)=${data.year} AND MONTH(date) = ${data.month}`)
-    output = await mysql.query(`SELECT sum (value) AS output FROM moviment WHERE type='output' AND YEAR(date)=${data.year} AND MONTH(date) = ${data.month}`)
-    
-    result = null;
-    if (input && output) {
-        result = {
-            input: input,
-            output: output
-        };
-    }
-   
-    return result*/
     input = await mysql.query(`SELECT *  FROM moviment WHERE type='input' AND YEAR(date)=${data.year} AND MONTH(date)=${data.month} `)
     output = await mysql.query(`SELECT *  FROM moviment WHERE type='output' AND YEAR(date)=${data.year} AND MONTH(date)=${data.month} `)
    
@@ -155,14 +142,6 @@ ioYearMonth = async(data)=>{
 }
 
 ioYearMonthMonth = async(data)=>{
-    /*
-    console.log(data)
-    input = await mysql.query(`SELECT sum(value) AS input FROM moviment WHERE type='input' AND YEAR(date)= ${data.year} 
-    AND MONTH(date) BETWEEN ${data.month} AND ${data.secondmonth}`)
-    output = await mysql.query(`SELECT sum(value) AS output FROM moviment WHERE type='output' AND YEAR(date)= ${data.year} 
-    AND MONTH(date) BETWEEN ${data.month} AND ${data.secondmonth}`)
-    */
-
     input = await mysql.query(`SELECT * FROM moviment WHERE type='input' AND YEAR(date)=${data.year} AND MONTH(date) BETWEEN ${data.month} AND ${data.secondmonth} `)
     output = await mysql.query(`SELECT * FROM moviment WHERE type='output' AND YEAR(date)=${data.year} AND MONTH(date) BETWEEN ${data.month} AND ${data.secondmonth} `)
     result = null;
