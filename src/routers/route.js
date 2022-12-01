@@ -26,7 +26,7 @@ router.get('/moviments', async (req, res, next)=>{
     auth= userController.verifyJWT(req.headers['x-access-token'])
     if(auth.idUser){
         if(req.headers.iduser==auth.idUser){
-           resp= await movimentoController.get(Buffer.from(req.query.query, 'base64').toString('utf-8'));
+           resp= await movimentoController.get(null);
            resp = Object.assign({}, resp, auth);
         }else{ 
             resp= {"status":"null", auth}
@@ -37,11 +37,98 @@ router.get('/moviments', async (req, res, next)=>{
     res.status(200).send(resp)
 })
 
-router.post('/mov',async (req, res, next)=>{
+router.get('/moviments/cashbalance', async (req, res, next)=>{
     auth= userController.verifyJWT(req.headers['x-access-token'])
     if(auth.idUser){
         if(req.headers.iduser==auth.idUser){
-            resp= await  movimentoController.post(req.body, req.headers.iduser);
+           resp= await movimentoController.cashbalance(req.body, req.headers.iduser);
+        }else{ 
+            resp= {"status":"null", auth}
+        }
+    }else{
+        resp= {"status":"null", auth}
+    }
+    res.status(200).send(resp)
+})
+
+router.get('/moviments/io', async (req, res, next)=>{
+    auth= userController.verifyJWT(req.headers['x-access-token'])
+    if(auth.idUser){
+        if(req.headers.iduser==auth.idUser){
+           resp= await movimentoController.io(null);
+           resp = Object.assign({}, resp, auth);
+        }else{ 
+            resp= {"status":"null", auth}
+        }
+    }else{
+        resp= {"status":"null", auth}
+    }
+    res.status(200).send(resp)
+})
+
+router.get('/moviments/io/:year/:month', async (req, res)=>{
+    auth= userController.verifyJWT(req.headers['x-access-token'])
+    if(auth.idUser){
+        if(req.headers.iduser==auth.idUser){
+           resp= await movimentoController.ioYearMonth(req.params);
+        }else{ 
+            resp= {"status":"null", auth}
+        }
+    }else{
+        resp= {"status":"null", auth}
+    }
+    res.status(200).send(resp)
+})
+
+router.get('/moviments/:year/:month', async (req, res)=>{
+    auth= userController.verifyJWT(req.headers['x-access-token'])
+    if(auth.idUser){
+        if(req.headers.iduser==auth.idUser){
+           resp= await movimentoController.yearMonth(req.params);
+        }else{ 
+            resp= {"status":"null", auth}
+        }
+    }else{
+        resp= {"status":"null", auth}
+    }
+    res.status(200).send(resp)
+})
+
+router.get('/moviments/io/:year/:month/:secondmonth', async (req, res)=>{
+    auth= userController.verifyJWT(req.headers['x-access-token'])
+    if(auth.idUser){
+        if(req.headers.iduser==auth.idUser){
+           resp= await movimentoController.ioYearMonthMonth(req.params);
+        }else{ 
+            resp= {"status":"null", auth}
+        }
+    }else{
+        resp= {"status":"null", auth}
+    }
+    res.status(200).send(resp)
+})
+
+/*
+router.get('/moviments', async (req, res, next)=>{
+    auth= userController.verifyJWT(req.headers['x-access-token'])
+    if(auth.idUser){
+        if(req.headers.iduser==auth.idUser){
+           resp= await movimentoController.get(Buffer.from(req.query.query, 'base64').toString('utf-8'));
+           resp = Object.assign({}, resp, auth);
+        }else{ 
+            resp= {"status":"null", auth}
+        }
+    }else{
+        resp= {"status":"null", auth}
+    }
+    res.status(200).send(resp)
+})*/
+
+router.post('/mov',async (req, res, next)=>{
+    auth = userController.verifyJWT(req.headers['x-access-token'])
+    if(auth.idUser){
+        if(req.headers.iduser==auth.idUser){
+            resp= await  movimentoController.post(req.body, req.headers.iduser);//muda de um p outro
             resp = Object.assign({}, resp, auth);
         }else{
             resp= {"status":"null", auth}
@@ -60,6 +147,21 @@ router.delete('/movimento', async (req, res, next)=>{
     movimento=movimentoController.delete(req.headers.idUser);
 })
 
-
+/*
+router.get('/moviments/output', async (req, res, next)=>{
+    auth= userController.verifyJWT(req.headers['x-access-token'])
+    if(auth.idUser){
+        if(req.headers.iduser==auth.idUser){
+           resp= await movimentoController.get(null);
+           resp = Object.assign({}, resp, auth);
+        }else{ 
+            resp= {"status":"null", auth}
+        }
+    }else{
+        resp= {"status":"null", auth}
+    }
+    res.status(200).send(resp)
+})
+*/
 
 module.exports = router;

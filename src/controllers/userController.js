@@ -16,3 +16,5 @@ exports.login=async(data)=>{
  exports.verifyJWT=(token)=>{
     return userModel.verifyJWT(token);
  }
+
+ 

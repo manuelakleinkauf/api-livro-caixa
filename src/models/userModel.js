@@ -7,18 +7,23 @@ get= async ()=>{
    return users;
 }
 
-login= async (data)=>{
-   sql="SELECT id, name, email FROM user WHERE email='"
-   +data.email+"' and password='"+data.password+"'";
-   const users = await  mysql.query(sql);
-   result=null;
+login = async (data)=>{
+   console.log(data)
+   // sql="SELECT id, name, email FROM user WHERE email='"+data.email+"' and password='"+data.password+"'"
+   //sql="SELECT * FROM user WHERE email='"+data.email+"' AND password='"+data.password+"'"
+   sql="SELECT * FROM user WHERE email='"+data.email+"' AND password='"+data.password+"'"
+   console.log(sql)
+   const users = await mysql.query(sql)
+   console.log(users)
+   result=null
    if(users[0].id){
-      const id=users[0].id;
-      var token = jwt.sign({id} , 'CIMOL', {expiresIn:1800}); 
-      console.log("Fez login e gerou token!");
-      result={ auth: true, token: token , user:users[0]}
+       console.log(users)
+       const id=users[0].id
+       var token = jwt.sign({id}, 'CIMOL', {expiresIn:1800})
+       console.log("Fez login e gerou token!!")
+       result={auth: true, token: token, user:users[0]}
    }
-   return result;
+   return result
 }
 
 logout=(token)=> { 
